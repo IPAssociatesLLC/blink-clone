@@ -1,1 +1,0 @@
-try{var k=Object.keys(sessionStorage).filter(function(k){return k.startsWith('chat-messages-')});k.forEach(function(k){try{sessionStorage.removeItem(k)}catch(e){}});}catch(e){}

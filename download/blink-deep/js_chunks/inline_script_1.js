@@ -1,1 +1,0 @@
-(function(){try{var d=document.documentElement,t=localStorage.getItem('blink-theme')||'dark',r=t==='system'?window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light':t;d.classList.remove('light','dark');d.classList.add(r);d.style.colorScheme=r}catch(e){}})()

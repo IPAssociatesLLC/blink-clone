@@ -1,1 +1,0 @@
-self.__next_f.push([1,"52:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\"}]]\n"])
