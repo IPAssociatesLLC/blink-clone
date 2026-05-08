@@ -1,0 +1,11 @@
+https://apis.google.com/js/api.js
+https://challenges.cloudflare.com/turnstile/v0/api.js
+https://content-firebaseappcheck.googleapis.com/v1/projects/
+https://dashboard.stripe.com/apikeys
+https://fonts.googleapis.com
+https://nextjs.org/docs/app/api-reference/functions/cookies
+https://nextjs.org/docs/app/api-reference/functions/headers
+https://nextjs.org/docs/app/api-reference/functions/use-search-params
+https://nextjs.org/docs/messages/next-dynamic-api-wrong-context
+https://nextjs.org/docs/messages/sync-dynamic-apis
+https://www.google.com/recaptcha/api.js

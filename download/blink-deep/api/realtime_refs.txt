@@ -1,0 +1,3 @@
+realtime
+wss://api.elevenlabs.io
+wss://sandbox-ws.kai-96c.workers.dev

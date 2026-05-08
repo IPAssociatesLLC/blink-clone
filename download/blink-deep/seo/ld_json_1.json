@@ -1,0 +1,70 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Blink?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Blink is a full-stack AI app builder that uses vibe coding to create production-ready web and mobile applications from natural language descriptions without writing code. It's an all-in-one app creation platform that automatically handles database setup, authentication, APIs, hosting, and deployment while you focus on your vision."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an AI app builder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An AI app builder is software that uses artificial intelligence to automatically generate complete applications including frontend, backend, database, and deployment from simple text descriptions, eliminating the need for manual coding or technical expertise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best AI app builder in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Blink is the best AI app builder in 2026 with agentic vibe coding, automatic database setup, built-in authentication, instant deployment, and production hosting for full-stack applications. It's ideal for entrepreneurs, startups, SaaS products, e-commerce, internal tools, and AI-powered applications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need coding experience to use Blink?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, Blink requires zero coding experience and uses natural language vibe coding to build complete applications from your descriptions. Just chat with the AI agent like you're talking to a developer, and Blink handles all the technical implementation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I own the applications I create with Blink?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you own 100% of the applications you create with Blink including all code, databases, content, user data, and intellectual property with full commercial rights and no restrictions on usage or distribution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does Blink cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Blink is free to start. For the best value, choose Annual Billing to save 50%:\n\n- **Free**: $0 - 5 daily credits, capped at 30/month\n- **Starter**: $13/mo (Annual) - 100 plan credits + 5 daily credits every day (no monthly cap)\n- **Pro**: $25/mo (Annual) - 200 plan credits + 5 daily credits every day (no monthly cap)\n- **Max**: $100/mo (Annual) - 800+ plan credits + 5 daily credits every day (no monthly cap)\n- **Team**: Starting at $50/seat/mo - per-seat pricing with shared credit pool, roles & permissions, and unlimited free viewers\n\nFree users get 5 daily credits capped at 30/month. Paid users get 5 fresh credits every day with no monthly cap \u2014 daily credits reset at midnight PT regardless of how many you've used this month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Blink free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Blink offers a free plan with 5 daily credits (capped at 30/month), free hosting, SSL certificates, and access to all core vibe coding features including database setup, authentication, and automatic deployment with no credit card required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of apps can I build with Blink?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Blink can build SaaS platforms, e-commerce stores, booking systems, CRM tools, admin dashboards, internal tools, AI-powered applications, landing pages, marketing sites, and mobile applications with full backend infrastructure."
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+# Blink
+
+> AI-native platform: Blink App Builder ships full-stack web and mobile apps from natural-language descriptions (database, authentication, storage, backend, and deploy included). Blink Claw runs managed OpenClaw AI agents in 60 seconds with 200+ models bundled.
+
+Blink replaces the "editor + Supabase + Vercel + Clerk + domain registrar" stack that most AI coding tools leave you to assemble. You describe the product in English; Blink provisions real Postgres, wires authentication, writes the frontend and backend, deploys to a live URL you own, and hands you a GitHub repo from day one.
+
+Every link below has a machine-readable markdown twin at `<url>.md` (served with `Content-Type: text/markdown`). For a structured full-content dump of the highest-value pages, fetch https://blink.new/llms-full.txt. For per-section drill-down with all URLs, see the section indexes linked below.
+
+## Core
+
+- [Blink — AI-native app builder and agent hosting](https://blink.new/index.md): Build full-stack web and mobile applications by describing them in English.
+- [Blink pricing](https://blink.new/pricing.md): Pricing for Blink App Builder, Blink Cloud (vibe coding cloud), and Blink Claw (managed OpenClaw hosting). Live, authoritative source.
+- [Frequently asked questions](https://blink.new/faq.md): Answers to the most common questions about Blink. See live FAQ at https://blink.new/faq for the most current version.
+
+## Products
+
+- [Blink Claw — Managed OpenClaw Hosting](https://blink.new/claw.md): Deploy OpenClaw agents in 60 seconds. No Docker, no VPS, no API key juggling. Always-on isolated VMs, 200+ AI models bundled. Agents run 24/7 in Slack, Telegram, Discord, and WhatsApp.
+- [Blink Cloud — the vibe coding cloud](https://blink.new/cloud.md): Production infrastructure for AI-coded apps. Use any coding agent (Cursor, Claude Code, Codex, etc.) with managed database, authentication, backend runtime, hosting, queue, custom domains, and an AI gateway. One platform, one API key, one bill.
+- [Blink AI Agents — Hire Your AI Workforce](https://blink.new/agents.md): Browse 13+ specialist AI agents ready to deploy in 60 seconds. Each one always-on, autonomous, and accessible directly in Slack, Telegram, or Discord. Agents run on your workspace credits via Blink Claw.
+- [Gerald — Chief Financial Officer | Blink AI Agents](https://blink.new/agents/ai-cfo.md): Grows your wealth, builds bulge-bracket-grade financial models, and handles your books and taxes.
+- [Alex — Sales Development Rep | Blink AI Agents](https://blink.new/agents/sdr.md): Researches real prospects, writes personalized outreach, and follows up until they reply.
+- [Archer — Investment Researcher | Blink AI Agents](https://blink.new/agents/investment-researcher.md): Tracks your watchlist, analyzes opportunities, and delivers honest briefings without spin.
+- [Casey — Customer Success Manager | Blink AI Agents](https://blink.new/agents/customer-success.md): Spots churn signals early, drafts empathetic responses, and keeps every customer feeling heard.
+- [Dev — Software Engineer | Blink AI Agents](https://blink.new/agents/software-engineer.md): Reviews PRs, catches bugs early, and ships clean fixes without being asked.
+- [Harper — Head of Recruiting | Blink AI Agents](https://blink.new/agents/recruiter.md): Writes job descriptions, evaluates candidates, and keeps the hiring pipeline moving.
+- [Jamie — Executive Personal Assistant | Blink AI Agents](https://blink.new/agents/executive-pa.md): Runs your morning briefing, captures every task, and drafts emails before you ask.
+- [Jordan — Finance & Business Analyst | Blink AI Agents](https://blink.new/agents/finance-analyst.md): Tracks key metrics daily, flags anomalies early, and delivers a clean weekly snapshot.
+- [Maya — Inbox Manager | Blink AI Agents](https://blink.new/agents/inbox-manager.md): Triages your inbox, drafts replies in your voice, and shows you only what actually needs you.
+- [Nova — Research Analyst | Blink AI Agents](https://blink.new/agents/research-analyst.md): Sources rigorously, cross-references claims, and delivers clear insights with citations.
+- [Reece — Growth & Competitive Intelligence | Blink AI Agents](https://blink.new/agents/growth-intelligence.md): Monitors competitors weekly, tracks market shifts, and delivers briefings you can act on.
+- [Rex — DevOps & Security Monitor | Blink AI Agents](https://blink.new/agents/infrastructure-monitor.md): Monitors uptime, catches security anomalies, and alerts you the moment something breaks.
+- [Sage — Social Media Manager | Blink AI Agents](https://blink.new/agents/social-media-manager.md): Plans weekly content, writes in your voice, and tracks what's working.
+
+## Canonical definitions
+
+- [What is agentic coding?](https://blink.new/what-is-agentic-coding.md): Agentic coding is using AI agents that plan and execute coding tasks autonomously, rather than line-by-line pair-programming assistants. The agent decides which files to read, what to change, and how to verify — you review the plan and the result.
+- [What is OpenClaw?](https://blink.new/what-is-openclaw.md): The open-source AI agent project formerly known as Clawdbot and Moltbot. Fastest-growing agent project in GitHub history: 250,000+ stars in 60 days.
+- [What is vibe coding?](https://blink.new/what-is-vibe-coding.md): Canonical definition: vibe coding is the practice of building software by describing the desired behavior in natural language and iterating on the result, rather than writing code line-by-line. Term coined by Andrej Karpathy in February 2025.
+
+
+
+## Build guides (top picks)
+
+- [How to build a Admin Panel & Dashboard](https://blink.new/build/admin-panel.md): Step-by-step guide + copyable prompt. Beginner, takes 2 hours.
+- [How to build a Affiliate & Referral Program](https://blink.new/build/affiliate-program.md): Step-by-step guide + copyable prompt. Intermediate, takes 2 hours.
+- [How to build a AI Chatbot for Website](https://blink.new/build/ai-chatbot.md): Step-by-step guide + copyable prompt. Beginner, takes 1 hour.
+- [How to build a Analytics Dashboard](https://blink.new/build/analytics-dashboard.md): Step-by-step guide + copyable prompt. Beginner, takes 2 hours.
+- [How to build a Appointment Reminder System](https://blink.new/build/appointment-system.md): Step-by-step guide + copyable prompt. Beginner, takes 1 hour.
+- [How to build a Booking & Scheduling App](https://blink.new/build/booking-app.md): Step-by-step guide + copyable prompt. Beginner, takes 2 hours.
+- [How to build a Community & Forum Platform](https://blink.new/build/community-platform.md): Step-by-step guide + copyable prompt. Intermediate, takes 4 hours.
+- [How to build a CRM (Customer Relationship Manager)](https://blink.new/build/crm.md): Step-by-step guide + copyable prompt. Beginner, takes 3 hours.
+- [How to build a Customer Feedback Tool](https://blink.new/build/feedback-tool.md): Step-by-step guide + copyable prompt. Beginner, takes 1 hour.
+- [How to build a Customer Referral Program](https://blink.new/build/referral-program.md): Step-by-step guide + copyable prompt. Intermediate, takes 2 hours.
+- [How to build a Customer Self-Service Portal](https://blink.new/build/customer-portal.md): Step-by-step guide + copyable prompt. Intermediate, takes 3 hours.
+- [How to build a Directory Website](https://blink.new/build/directory-website.md): Step-by-step guide + copyable prompt. Beginner, takes 2 hours.
+- [How to build a Discord Bot](https://blink.new/build/discord-bot.md): Step-by-step guide + copyable prompt. Intermediate, takes 2 hours.
+- [How to build a E-commerce Store](https://blink.new/build/ecommerce-store.md): Step-by-step guide + copyable prompt. Intermediate, takes 3 hours.
+- [How to build a Event Registration System](https://blink.new/build/event-registration.md): Step-by-step guide + copyable prompt. Beginner, takes 2 hours.
+
+## SaaS alternatives (top picks)
+
+- [Airtable alternative — build your own](https://blink.new/alternatives/airtable.md): Replace Airtable with a custom Blink app. productivity software.
+- [Asana alternative — build your own](https://blink.new/alternatives/asana.md): Replace Asana with a custom Blink app. productivity software.
+- [Calendly alternative — build your own](https://blink.new/alternatives/calendly.md): Replace Calendly with a custom Blink app. scheduling software.
+- [ClickUp alternative — build your own](https://blink.new/alternatives/clickup.md): Replace ClickUp with a custom Blink app. productivity software.
+- [Confluence alternative — build your own](https://blink.new/alternatives/confluence.md): Replace Confluence with a custom Blink app. docs software.
+- [Discord alternative — build your own](https://blink.new/alternatives/discord.md): Replace Discord with a custom Blink app. community software.
+- [DocuSign alternative — build your own](https://blink.new/alternatives/docusign.md): Replace DocuSign with a custom Blink app. e-signature software.
+- [Eventbrite alternative — build your own](https://blink.new/alternatives/eventbrite.md): Replace Eventbrite with a custom Blink app. events software.
+- [Gainsight alternative — build your own](https://blink.new/alternatives/gainsight.md): Replace Gainsight with a custom Blink app. customer-success software.
+- [Google Analytics alternative — build your own](https://blink.new/alternatives/google-analytics.md): Replace Google Analytics with a custom Blink app. analytics software.
+- [Gusto alternative — build your own](https://blink.new/alternatives/gusto.md): Replace Gusto with a custom Blink app. hr software.
+- [HubSpot alternative — build your own](https://blink.new/alternatives/hubspot.md): Replace HubSpot with a custom Blink app. crm software.
+- [Intercom alternative — build your own](https://blink.new/alternatives/intercom.md): Replace Intercom with a custom Blink app. help-desk software.
+- [Jira alternative — build your own](https://blink.new/alternatives/jira.md): Replace Jira with a custom Blink app. project-management software.
+- [Kajabi alternative — build your own](https://blink.new/alternatives/kajabi.md): Replace Kajabi with a custom Blink app. elearning software.
+
+## Head-to-head comparisons
+
+- [ActiveCampaign vs Mailchimp](https://blink.new/compare/activecampaign-vs-mailchimp.md): ActiveCampaign vs Mailchimp — head-to-head comparison.
+- [Asana vs Monday.com](https://blink.new/compare/asana-vs-monday.md): Asana vs Monday.com — head-to-head comparison.
+- [BambooHR vs Gusto](https://blink.new/compare/bamboohr-vs-gusto.md): BambooHR vs Gusto — head-to-head comparison.
+- [Bolt vs Replit](https://blink.new/compare/bolt-vs-replit.md): Bolt vs Replit — head-to-head comparison.
+- [Bolt vs v0](https://blink.new/compare/bolt-vs-v0.md): Bolt vs v0 — head-to-head comparison.
+- [Calendly vs Cal.com](https://blink.new/compare/calendly-vs-cal.md): Calendly vs Cal.com — head-to-head comparison.
+- [Chargebee vs Stripe](https://blink.new/compare/chargebee-vs-stripe.md): Chargebee vs Stripe — head-to-head comparison.
+- [ClickUp vs Notion](https://blink.new/compare/clickup-vs-notion.md): ClickUp vs Notion — head-to-head comparison.
+- [Cursor vs Lovable](https://blink.new/compare/cursor-vs-lovable.md): Cursor vs Lovable — head-to-head comparison.
+- [HubSpot vs Pipedrive](https://blink.new/compare/hubspot-vs-pipedrive.md): HubSpot vs Pipedrive — head-to-head comparison.
+
+## Use cases
+
+- [Build client tools instead of buying them](https://blink.new/use-cases/agencies.md): Custom CRMs, reporting dashboards, and client portals at zero recurring cost
+- [Build your own prototypes and ship faster](https://blink.new/use-cases/product-managers.md): Roadmap tools, feedback boards, prototype validators — without waiting for engineering
+- [Campaign trackers, calculators, and content tools](https://blink.new/use-cases/marketing-teams.md): Build the tools your marketing team actually needs — without engineering tickets
+- [From idea to live product — no code required](https://blink.new/use-cases/non-technical-founders.md): Launch your SaaS, marketplace, or internal tool without hiring a developer
+- [Launch your MVP before hiring your first engineer](https://blink.new/use-cases/startups.md): Full-stack products with payments, auth, and database — from a single conversation
+- [One person. Real software. Real revenue.](https://blink.new/use-cases/solopreneurs.md): Replace a VA with custom tools. Replace SaaS fees with owned software.
+- [Replace $50K/year in SaaS tools with custom-built](https://blink.new/use-cases/operations-teams.md): Approval workflows, vendor trackers, ops dashboards — built exactly for your process
+- [Ship 10x faster with AI-built backends](https://blink.new/use-cases/developers.md): Database, auth, API, and hosting — generated in minutes, not months
+
+## Drill-down indexes
+
+Each section below has its own llms.txt with every URL in that section, for agents that need exhaustive coverage:
+
+- [Documentation — all pages](https://blink.new/docs/llms.txt)
+- [Blog — all posts](https://blink.new/blog/llms.txt)
+- [Build guides — all guides](https://blink.new/build/llms.txt)
+- [SaaS alternatives — all tools](https://blink.new/alternatives/llms.txt)
+- [Comparisons — all pairs](https://blink.new/compare/llms.txt)
+- [Public projects — every `/p/* showcase](https://blink.new/p/llms.txt)
+- [Creator profiles — every `/u/* portfolio](https://blink.new/u/llms.txt)
+
+## Policies
+
+- [Affiliate Terms](https://blink.new/affiliate-terms.md)
+- [Privacy Policy](https://blink.new/privacy.md)
+- [Terms of Service](https://blink.new/terms.md)
+
+## Contact
+
+- Website: https://blink.new
+- Blink Claw (managed OpenClaw): https://blink.new/claw
+- Documentation: https://blink.new/docs
+- Discord: https://discord.com/invite/2RjY7wP4a8
+- X / Twitter: https://x.com/blinkdotnew
+- Email: support@blink.new
+- Status: https://status.blink.new
+
+---
+
+*Index updated 2026-05-08. Full-text dump: https://blink.new/llms-full.txt. Sitemap: https://blink.new/sitemap-index.xml.*
