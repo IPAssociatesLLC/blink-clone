@@ -6,8 +6,8 @@ const footerCols = [
   {
     title: 'PRODUCT',
     links: [
-      { label: 'AI Employees', page: 'home' as PageType },
-      { label: 'Blink Claw', page: 'home' as PageType },
+      { label: 'AI Agents', page: 'agents' as PageType },
+      { label: 'Blink Claw', page: 'claw' as PageType },
       { label: 'Templates', page: 'templates' as PageType },
       { label: 'Explore', page: 'home' as PageType },
       { label: 'Pricing', page: 'pricing' as PageType },
@@ -17,7 +17,7 @@ const footerCols = [
   {
     title: 'RESOURCES',
     links: [
-      { label: 'Blog', page: 'home' as PageType },
+      { label: 'Blog', page: 'blog' as PageType },
       { label: 'Documentation', page: 'docs' as PageType },
       { label: 'Prompts', page: 'home' as PageType },
       { label: 'Case Studies', page: 'home' as PageType },
@@ -30,7 +30,7 @@ const footerCols = [
       { label: 'Discord', page: 'home' as PageType },
       { label: 'X / Twitter', page: 'home' as PageType },
       { label: 'Support', page: 'home' as PageType },
-      { label: 'Affiliates', page: 'home' as PageType },
+      { label: 'Affiliates', page: 'affiliates' as PageType },
     ],
   },
   {
@@ -59,6 +59,9 @@ export function Footer() {
               </svg>
               <span className="text-lg font-bold tracking-tight">Blink</span>
             </button>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Build websites, SaaS, and mobile apps in minutes by chatting with AI. Everything included.
+            </p>
             <div className="flex gap-3 mt-4">
               {/* X/Twitter */}
               <a href="#" className="w-9 h-9 rounded-md flex items-center justify-center text-muted-foreground hover:bg-border hover:text-foreground transition-colors" title="X / Twitter">

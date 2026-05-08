@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { useTheme } from 'next-themes';
 import { usePageStore, type PageType } from '@/lib/page-context';
-import { Monitor, Sun, Moon, Menu, X } from 'lucide-react';
+import { Monitor, Sun, Moon, Menu, X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const navLinks: { label: string; page: PageType; isNew?: boolean }[] = [
-  { label: 'AI Employees', page: 'home', isNew: true },
+  { label: 'Agents', page: 'agents', isNew: true },
+  { label: 'Claw', page: 'claw', isNew: true },
   { label: 'Templates', page: 'templates' },
   { label: 'Pricing', page: 'pricing' },
   { label: 'Docs', page: 'docs' },
@@ -54,17 +55,20 @@ export function Navbar() {
                       NEW
                     </span>
                   )}
+                  {link.page === 'agents' && <Sparkles className="w-3.5 h-3.5" />}
                   {link.label}
                 </button>
               ))}
-              <a
-                href="https://blink.new/blog"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              <button
+                onClick={() => handleNavClick('blog')}
+                className={`text-sm font-medium px-3 py-1.5 rounded-md transition-colors ${
+                  currentPage === 'blog'
+                    ? 'text-foreground bg-secondary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                }`}
               >
                 Blog
-              </a>
+              </button>
             </div>
           </div>
 
@@ -136,17 +140,22 @@ export function Navbar() {
                   NEW
                 </span>
               )}
+              {link.page === 'agents' && <Sparkles className="w-4 h-4" />}
               {link.label}
             </button>
           ))}
-          <a
-            href="https://blink.new/blog"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => handleNavClick('blog')}
             className="text-base font-medium px-4 py-3 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
           >
             Blog
-          </a>
+          </button>
+          <button
+            onClick={() => handleNavClick('affiliates')}
+            className="text-base font-medium px-4 py-3 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
+          >
+            Affiliates
+          </button>
           <hr className="border-border my-2" />
           <button className="text-base font-medium px-4 py-3 rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors">
             Log in

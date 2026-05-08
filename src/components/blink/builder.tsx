@@ -14,6 +14,12 @@ import {
   Loader2,
   PanelLeftClose,
   PanelLeft,
+  FolderTree,
+  FolderOpen,
+  Folder,
+  File,
+  Sparkles,
+  Search,
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
@@ -29,10 +35,83 @@ interface GeneratedFile {
   language: string;
 }
 
-const models = ['Blink 1.0 Lite', 'Blink 1.0', 'Blink 1.0 Pro', 'GPT-4o', 'Claude 3.5 Sonnet'];
+interface ModelOption {
+  id: string;
+  name: string;
+  provider: string;
+}
+
+const modelGroups: { provider: string; models: ModelOption[] }[] = [
+  {
+    provider: 'Blink',
+    models: [
+      { id: 'blink-1.0-lite', name: 'Blink 1.0 Lite', provider: 'Blink' },
+      { id: 'blink-1.0', name: 'Blink 1.0', provider: 'Blink' },
+      { id: 'blink-1.0-pro', name: 'Blink 1.0 Pro', provider: 'Blink' },
+    ],
+  },
+  {
+    provider: 'OpenAI',
+    models: [
+      { id: 'gpt-5.5', name: 'GPT-5.5', provider: 'OpenAI' },
+      { id: 'gpt-5.4', name: 'GPT-5.4', provider: 'OpenAI' },
+      { id: 'gpt-5.2', name: 'GPT-5.2', provider: 'OpenAI' },
+      { id: 'gpt-5.1', name: 'GPT-5.1', provider: 'OpenAI' },
+      { id: 'gpt-5.1-codex', name: 'GPT-5.1 Codex', provider: 'OpenAI' },
+      { id: 'gpt-5.1-codex-mini', name: 'GPT-5.1 Codex Mini', provider: 'OpenAI' },
+      { id: 'gpt-5-mini', name: 'GPT-5 Mini', provider: 'OpenAI' },
+      { id: 'gpt-5-nano', name: 'GPT-5 Nano', provider: 'OpenAI' },
+      { id: 'gpt-4.1', name: 'GPT-4.1', provider: 'OpenAI' },
+      { id: 'gpt-4.1-mini', name: 'GPT-4.1 Mini', provider: 'OpenAI' },
+      { id: 'gpt-4.1-nano', name: 'GPT-4.1 Nano', provider: 'OpenAI' },
+    ],
+  },
+  {
+    provider: 'Anthropic',
+    models: [
+      { id: 'claude-opus-4-7', name: 'Claude Opus 4.7', provider: 'Anthropic' },
+      { id: 'claude-opus-4-6', name: 'Claude Opus 4.6', provider: 'Anthropic' },
+      { id: 'claude-opus-4-5', name: 'Claude Opus 4.5', provider: 'Anthropic' },
+      { id: 'claude-sonnet-4-6', name: 'Claude Sonnet 4.6', provider: 'Anthropic' },
+      { id: 'claude-sonnet-4-5', name: 'Claude Sonnet 4.5', provider: 'Anthropic' },
+      { id: 'claude-3-7-sonnet', name: 'Claude 3.7 Sonnet', provider: 'Anthropic' },
+      { id: 'claude-haiku-4-5', name: 'Claude Haiku 4.5', provider: 'Anthropic' },
+    ],
+  },
+  {
+    provider: 'Google',
+    models: [
+      { id: 'gemini-3.1-pro-preview', name: 'Gemini 3.1 Pro Preview', provider: 'Google' },
+      { id: 'gemini-3-pro-preview', name: 'Gemini 3 Pro Preview', provider: 'Google' },
+      { id: 'gemini-3-flash', name: 'Gemini 3 Flash', provider: 'Google' },
+      { id: 'gemini-2.5-pro', name: 'Gemini 2.5 Pro', provider: 'Google' },
+      { id: 'gemini-2.5-flash', name: 'Gemini 2.5 Flash', provider: 'Google' },
+      { id: 'gemini-2.5-flash-lite', name: 'Gemini 2.5 Flash Lite', provider: 'Google' },
+      { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash', provider: 'Google' },
+    ],
+  },
+  {
+    provider: 'xAI',
+    models: [
+      { id: 'grok-4-latest', name: 'Grok 4 Latest', provider: 'xAI' },
+      { id: 'grok-4-1-fast', name: 'Grok 4.1 Fast', provider: 'xAI' },
+    ],
+  },
+];
+
+const allModels = modelGroups.flatMap((g) => g.models);
+
+const defaultFileTree: GeneratedFile[] = [
+  { name: 'page.tsx', path: 'src/app/page.tsx', language: 'tsx' },
+  { name: 'layout.tsx', path: 'src/app/layout.tsx', language: 'tsx' },
+  { name: 'globals.css', path: 'src/app/globals.css', language: 'css' },
+  { name: 'route.ts', path: 'src/app/api/route.ts', language: 'typescript' },
+  { name: 'schema.prisma', path: 'prisma/schema.prisma', language: 'prisma' },
+  { name: 'utils.ts', path: 'src/lib/utils.ts', language: 'typescript' },
+];
 
 export function Builder() {
-  const { navigate, projectPrompt, projectType, projectModel } = usePageStore();
+  const { navigate, projectPrompt, projectType, projectModel, selectedAgent } = usePageStore();
   const [messages, setMessages] = useState<Message[]>(() => {
     if (projectPrompt) {
       return [{
@@ -45,12 +124,20 @@ export function Builder() {
   });
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState(projectModel || 'Blink 1.0 Lite');
+  const [selectedModel, setSelectedModel] = useState<ModelOption>(() => {
+    const found = allModels.find((m) => m.id === projectModel);
+    return found || allModels[0];
+  });
   const [showModelDropdown, setShowModelDropdown] = useState(false);
+  const [modelSearch, setModelSearch] = useState('');
   const [activeView, setActiveView] = useState<'preview' | 'code'>('preview');
-  const [generatedFiles, setGeneratedFiles] = useState<GeneratedFile[]>([]);
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [generatedFiles, setGeneratedFiles] = useState<GeneratedFile[]>(defaultFileTree);
+  const [selectedFile, setSelectedFile] = useState<string | null>('src/app/page.tsx');
   const [chatOpen, setChatOpen] = useState(true);
+  const [fileTreeOpen, setFileTreeOpen] = useState(true);
+  const [agentMode, setAgentMode] = useState(!!selectedAgent);
+  const [streamingContent, setStreamingContent] = useState('');
+  const [isStreaming, setIsStreaming] = useState(false);
   const initialSentRef = useRef(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -84,6 +171,25 @@ export function Builder() {
     }
   }, []);
 
+  // Simulate streaming effect
+  const simulateStreaming = useCallback((content: string) => {
+    setIsStreaming(true);
+    setStreamingContent('');
+    let index = 0;
+    const chunkSize = 3;
+    const interval = setInterval(() => {
+      index += chunkSize;
+      if (index >= content.length) {
+        setStreamingContent(content);
+        setIsStreaming(false);
+        clearInterval(interval);
+      } else {
+        setStreamingContent(content.slice(0, index));
+      }
+    }, 10);
+    return interval;
+  }, []);
+
   const sendToAI = useCallback(async (currentMessages: Message[], currentModel: string) => {
     setIsLoading(true);
     try {
@@ -92,22 +198,37 @@ export function Builder() {
         content: m.content,
       }));
 
-      const response = await fetch('/api/chat', {
+      const endpoint = agentMode ? '/api/agent-chat' : '/api/chat';
+      const body = agentMode
+        ? { messages: apiMessages, model: currentModel, agentId: selectedAgent || 'dev' }
+        : { messages: apiMessages, model: currentModel };
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: apiMessages, model: currentModel }),
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
+      const content = data.message;
 
-      const assistantMessage: Message = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content: data.message,
-      };
+      // Simulate streaming
+      const streamInterval = simulateStreaming(content);
 
-      setMessages((prev) => [...prev, assistantMessage]);
-      parseFilesFromResponse(data.message);
+      // After streaming is done, add the message
+      setTimeout(() => {
+        clearInterval(streamInterval);
+        const assistantMessage: Message = {
+          id: crypto.randomUUID(),
+          role: 'assistant',
+          content,
+        };
+        setMessages((prev) => [...prev, assistantMessage]);
+        parseFilesFromResponse(content);
+        setStreamingContent('');
+        setIsStreaming(false);
+        setIsLoading(false);
+      }, Math.min(content.length * 10 / 3 + 100, 3000));
     } catch {
       const errorMessage: Message = {
         id: crypto.randomUUID(),
@@ -115,24 +236,25 @@ export function Builder() {
         content: 'I apologize, but I encountered an error processing your request. Please try again.',
       };
       setMessages((prev) => [...prev, errorMessage]);
+      setIsStreaming(false);
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, [parseFilesFromResponse]);
+  }, [parseFilesFromResponse, simulateStreaming, agentMode, selectedAgent]);
 
-  // Send initial prompt on mount - defer to avoid setState in effect
+  // Send initial prompt on mount
   useEffect(() => {
     if (projectPrompt && !initialSentRef.current) {
       initialSentRef.current = true;
       const timer = setTimeout(() => {
-        sendToAI(messages, projectModel || 'Blink 1.0 Lite');
+        sendToAI(messages, projectModel || 'blink-1.0-lite');
       }, 0);
       return () => clearTimeout(timer);
     }
-  }, [projectPrompt, sendToAI, projectModel, messages]);
+  }, [projectPrompt]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, streamingContent]);
 
   const handleSend = () => {
     if (!inputValue.trim() || isLoading) return;
@@ -146,7 +268,7 @@ export function Builder() {
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInputValue('');
-    sendToAI(newMessages, selectedModel);
+    sendToAI(newMessages, selectedModel.id);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -162,6 +284,23 @@ export function Builder() {
     website: 'Website',
     extension: 'Chrome Extension',
   }[projectType] || 'Full Stack App';
+
+  const filteredGroups = modelSearch
+    ? modelGroups.map((g) => ({
+        ...g,
+        models: g.models.filter((m) =>
+          m.name.toLowerCase().includes(modelSearch.toLowerCase())
+        ),
+      })).filter((g) => g.models.length > 0)
+    : modelGroups;
+
+  // Group files by directory for tree view
+  const fileTree = generatedFiles.reduce<Record<string, GeneratedFile[]>>((acc, file) => {
+    const dir = file.path.includes('/') ? file.path.substring(0, file.path.lastIndexOf('/')) : '/';
+    if (!acc[dir]) acc[dir] = [];
+    acc[dir].push(file);
+    return acc;
+  }, {});
 
   return (
     <div className="h-screen flex flex-col bg-background">
@@ -180,36 +319,83 @@ export function Builder() {
               <path d="M8 10h6v2H10v3h3v2H10v5H8V10zm9 0h3c2.2 0 4 1.8 4 4s-1.8 4-4 4h-1v4h-2V10zm3 6c1.1 0 2-.9 2-2s-.9-2-2-2h-1v4h1z" fill="white" />
             </svg>
             <span className="text-sm font-semibold">{projectTypeLabel}</span>
+            {agentMode && (
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#216BE4]/10 text-[#216BE4] flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                Agent
+              </span>
+            )}
           </div>
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Agent Mode Toggle */}
+          <button
+            onClick={() => setAgentMode(!agentMode)}
+            className={`text-xs font-medium px-3 py-1.5 rounded-md flex items-center gap-1.5 transition-colors ${
+              agentMode
+                ? 'bg-[#216BE4]/10 text-[#216BE4]'
+                : 'bg-secondary text-muted-foreground hover:bg-border'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Agent
+          </button>
+
           {/* Model selector */}
           <div className="relative">
             <button
-              onClick={() => setShowModelDropdown(!showModelDropdown)}
+              onClick={() => {
+                setShowModelDropdown(!showModelDropdown);
+                setModelSearch('');
+              }}
               className="text-xs font-medium px-3 py-1.5 rounded-md bg-secondary text-muted-foreground hover:bg-border flex items-center gap-1.5 transition-colors"
             >
               <Bot className="w-3.5 h-3.5" />
-              {selectedModel}
+              {selectedModel.name}
               <ChevronDown className="w-3 h-3" />
             </button>
             {showModelDropdown && (
-              <div className="absolute top-full right-0 mt-1 bg-card border border-border rounded-lg shadow-lg py-1 min-w-[180px] z-10">
-                {models.map((model) => (
-                  <button
-                    key={model}
-                    onClick={() => {
-                      setSelectedModel(model);
-                      setShowModelDropdown(false);
-                    }}
-                    className={`w-full text-left text-xs px-3 py-2 hover:bg-secondary transition-colors ${
-                      selectedModel === model ? 'text-foreground font-medium' : 'text-muted-foreground'
-                    }`}
-                  >
-                    {model}
-                  </button>
-                ))}
+              <div className="absolute top-full right-0 mt-1 bg-card border border-border rounded-lg shadow-xl py-1 min-w-[260px] max-h-[320px] overflow-hidden z-10 flex flex-col">
+                <div className="p-2 border-b border-border">
+                  <div className="flex items-center gap-2 px-2 py-1.5 bg-secondary rounded-md">
+                    <Search className="w-3.5 h-3.5 text-muted-foreground" />
+                    <input
+                      type="text"
+                      value={modelSearch}
+                      onChange={(e) => setModelSearch(e.target.value)}
+                      placeholder="Search models..."
+                      className="flex-1 bg-transparent text-xs outline-none text-foreground placeholder:text-muted-foreground"
+                    />
+                  </div>
+                </div>
+                <div className="overflow-y-auto custom-scrollbar">
+                  {filteredGroups.map((group) => (
+                    <div key={group.provider}>
+                      <div className="px-3 py-1.5 text-[10px] font-bold tracking-widest text-muted-foreground bg-secondary/50">
+                        {group.provider}
+                      </div>
+                      {group.models.map((model) => (
+                        <button
+                          key={model.id}
+                          onClick={() => {
+                            setSelectedModel(model);
+                            setShowModelDropdown(false);
+                            setModelSearch('');
+                          }}
+                          className={`w-full text-left text-xs px-3 py-2 hover:bg-secondary transition-colors flex items-center justify-between ${
+                            selectedModel.id === model.id ? 'text-[#216BE4] font-medium' : 'text-muted-foreground'
+                          }`}
+                        >
+                          <span>{model.name}</span>
+                          {selectedModel.id === model.id && (
+                            <span className="text-[10px] font-bold text-[#216BE4]">✓</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -244,12 +430,72 @@ export function Builder() {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
+        {/* File Tree Sidebar */}
+        {fileTreeOpen && (
+          <div className="w-[200px] border-r border-border flex flex-col bg-background flex-shrink-0">
+            <div className="h-10 border-b border-border flex items-center justify-between px-3 flex-shrink-0">
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                <FolderTree className="w-3.5 h-3.5" />
+                Files
+              </span>
+              <button
+                onClick={() => setFileTreeOpen(false)}
+                className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              >
+                <PanelLeftClose className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto custom-scrollbar py-1">
+              {Object.entries(fileTree).map(([dir, files]) => (
+                <div key={dir}>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground">
+                    {dir === '/' ? <FolderOpen className="w-3.5 h-3.5" /> : <Folder className="w-3.5 h-3.5" />}
+                    <span className="font-medium truncate">{dir === '/' ? 'root' : dir.split('/').pop()}</span>
+                  </div>
+                  {files.map((file) => (
+                    <button
+                      key={file.path}
+                      onClick={() => setSelectedFile(file.path)}
+                      className={`w-full flex items-center gap-1.5 px-3 pl-6 py-1.5 text-xs transition-colors ${
+                        selectedFile === file.path
+                          ? 'bg-[#216BE4]/10 text-[#216BE4]'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                      }`}
+                    >
+                      <FileCode2 className="w-3 h-3 flex-shrink-0" />
+                      <span className="truncate">{file.name}</span>
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!fileTreeOpen && (
+          <button
+            onClick={() => setFileTreeOpen(true)}
+            className="w-10 border-r border-border flex items-start justify-center pt-3 bg-background text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors flex-shrink-0"
+          >
+            <FolderTree className="w-4 h-4" />
+          </button>
+        )}
+
         {/* Chat Panel */}
         {chatOpen && (
           <div className="w-[380px] border-r border-border flex flex-col bg-background flex-shrink-0">
             {/* Chat Header */}
             <div className="h-10 border-b border-border flex items-center justify-between px-4 flex-shrink-0">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Chat</span>
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                {agentMode ? (
+                  <>
+                    <Sparkles className="w-3.5 h-3.5 text-[#216BE4]" />
+                    Agent Chat
+                  </>
+                ) : (
+                  'Chat'
+                )}
+              </span>
               <button
                 onClick={() => setChatOpen(false)}
                 className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
@@ -263,7 +509,7 @@ export function Builder() {
               {messages.length === 0 && !isLoading && (
                 <div className="text-center py-12 text-muted-foreground">
                   <Bot className="w-10 h-10 mx-auto mb-3 text-[#216BE4]" />
-                  <p className="text-sm font-medium">Blink AI</p>
+                  <p className="text-sm font-medium">{agentMode ? 'AI Agent' : 'Blink AI'}</p>
                   <p className="text-xs mt-1">Describe what you want to build</p>
                 </div>
               )}
@@ -274,7 +520,7 @@ export function Builder() {
                 >
                   {message.role === 'assistant' && (
                     <div className="w-7 h-7 rounded-md bg-[#216BE4]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Bot className="w-4 h-4 text-[#216BE4]" />
+                      {agentMode ? <Sparkles className="w-4 h-4 text-[#216BE4]" /> : <Bot className="w-4 h-4 text-[#216BE4]" />}
                     </div>
                   )}
                   <div
@@ -294,10 +540,25 @@ export function Builder() {
                   </div>
                 </div>
               ))}
-              {isLoading && (
+              {/* Streaming content */}
+              {(isStreaming || isLoading) && streamingContent && (
+                <div className="flex gap-3 justify-start">
+                  <div className="w-7 h-7 rounded-md bg-[#216BE4]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {agentMode ? <Sparkles className="w-4 h-4 text-[#216BE4]" /> : <Bot className="w-4 h-4 text-[#216BE4]" />}
+                  </div>
+                  <div className="max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed bg-secondary text-foreground">
+                    <div className="prose prose-sm dark:prose-invert max-w-none [&_pre]:bg-muted [&_pre]:rounded-md [&_pre]:p-3 [&_pre]:overflow-x-auto [&_code]:text-xs [&_pre_code]:text-xs">
+                      <ReactMarkdown>{streamingContent}</ReactMarkdown>
+                      {isStreaming && <span className="inline-block w-1.5 h-4 bg-[#216BE4] animate-pulse ml-0.5" />}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* Loading dots when no streaming content yet */}
+              {(isLoading && !streamingContent) && (
                 <div className="flex gap-3 justify-start">
                   <div className="w-7 h-7 rounded-md bg-[#216BE4]/10 flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-[#216BE4]" />
+                    {agentMode ? <Sparkles className="w-4 h-4 text-[#216BE4]" /> : <Bot className="w-4 h-4 text-[#216BE4]" />}
                   </div>
                   <div className="bg-secondary rounded-xl px-4 py-3">
                     <div className="flex gap-1.5">
@@ -320,7 +581,7 @@ export function Builder() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Describe changes or new features..."
+                  placeholder={agentMode ? "Ask the AI agent..." : "Describe changes or new features..."}
                   disabled={isLoading}
                   className="flex-1 border border-border rounded-lg px-3 py-2 text-sm bg-secondary text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#216BE4]/30 disabled:opacity-50"
                 />
@@ -352,9 +613,9 @@ export function Builder() {
         {/* Preview / Code Area */}
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* File Tabs */}
-          {generatedFiles.length > 0 && (
+          {generatedFiles.length > 0 && activeView === 'code' && (
             <div className="h-9 border-b border-border flex items-center px-2 gap-1 overflow-x-auto flex-shrink-0 bg-secondary/30">
-              {generatedFiles.map((file) => (
+              {generatedFiles.slice(0, 8).map((file) => (
                 <button
                   key={file.path}
                   onClick={() => setSelectedFile(file.path)}
@@ -368,6 +629,9 @@ export function Builder() {
                   {file.name}
                 </button>
               ))}
+              {generatedFiles.length > 8 && (
+                <span className="text-xs text-muted-foreground px-2">+{generatedFiles.length - 8}</span>
+              )}
             </div>
           )}
 
@@ -399,9 +663,16 @@ export function Builder() {
                         </div>
                       </div>
                       <div className="p-8">
-                        {messages.length > 1 && messages[1]?.role === 'assistant' ? (
+                        {isLoading || isStreaming ? (
+                          <div className="text-center py-8">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#216BE4]/10 text-[#216BE4] text-sm font-medium">
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              Building your app...
+                            </div>
+                          </div>
+                        ) : messages.length > 1 && messages[messages.length - 1]?.role === 'assistant' ? (
                           <div className="prose prose-sm dark:prose-invert max-w-none">
-                            <ReactMarkdown>{messages[1].content}</ReactMarkdown>
+                            <ReactMarkdown>{messages[messages.length - 1].content}</ReactMarkdown>
                           </div>
                         ) : (
                           <div className="text-center py-8">
@@ -415,7 +686,7 @@ export function Builder() {
                     </div>
 
                     {/* Generated Files Grid */}
-                    {generatedFiles.length > 0 && (
+                    {generatedFiles.length > 0 && !isLoading && !isStreaming && (
                       <div className="mt-6">
                         <h4 className="text-sm font-semibold text-muted-foreground mb-3">Generated Files</h4>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -447,7 +718,7 @@ export function Builder() {
                   <div className="font-mono text-sm">
                     <div className="bg-secondary/30 border border-border rounded-lg p-4">
                       <div className="flex items-center gap-2 mb-3 pb-3 border-b border-border">
-                        <FileCode2 className="w-4 h-4 text-[#216BE4]" />
+                        <File className="w-4 h-4 text-[#216BE4]" />
                         <span className="text-xs font-medium text-muted-foreground">{selectedFile}</span>
                       </div>
                       <pre className="text-xs leading-relaxed text-muted-foreground whitespace-pre-wrap">

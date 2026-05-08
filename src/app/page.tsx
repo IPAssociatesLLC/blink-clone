@@ -13,6 +13,10 @@ import { Builder } from '@/components/blink/builder';
 import { Pricing } from '@/components/blink/pricing';
 import { Templates } from '@/components/blink/templates';
 import { DocsPage } from '@/components/blink/docs-page';
+import { Agents } from '@/components/blink/agents';
+import { Claw } from '@/components/blink/claw';
+import { Blog } from '@/components/blink/blog';
+import { Affiliates } from '@/components/blink/affiliates';
 
 function HomePage() {
   return (
@@ -43,6 +47,11 @@ export default function Home() {
         {currentPage === 'pricing' && <Pricing />}
         {currentPage === 'templates' && <Templates />}
         {currentPage === 'docs' && <DocsPage />}
+        {currentPage === 'agents' && <Agents />}
+        {currentPage === 'claw' && <Claw />}
+        {currentPage === 'alternatives' && <Alternatives />}
+        {currentPage === 'blog' && <Blog />}
+        {currentPage === 'affiliates' && <Affiliates />}
       </main>
       <Footer />
     </div>

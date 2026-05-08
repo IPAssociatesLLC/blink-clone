@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type PageType = 'home' | 'builder' | 'pricing' | 'templates' | 'docs';
+export type PageType = 'home' | 'builder' | 'pricing' | 'templates' | 'docs' | 'agents' | 'claw' | 'alternatives' | 'blog' | 'affiliates';
 
 interface PageState {
   currentPage: PageType;
@@ -8,9 +8,11 @@ interface PageState {
   projectPrompt: string;
   projectType: string;
   projectModel: string;
+  selectedAgent: string;
   setProjectPrompt: (prompt: string) => void;
   setProjectType: (type: string) => void;
   setProjectModel: (model: string) => void;
+  setSelectedAgent: (agent: string) => void;
 }
 
 export const usePageStore = create<PageState>((set) => ({
@@ -19,7 +21,9 @@ export const usePageStore = create<PageState>((set) => ({
   projectPrompt: '',
   projectType: 'fullstack',
   projectModel: 'blink-1.0-lite',
+  selectedAgent: '',
   setProjectPrompt: (prompt) => set({ projectPrompt: prompt }),
   setProjectType: (type) => set({ projectType: type }),
   setProjectModel: (model) => set({ projectModel: model }),
+  setSelectedAgent: (agent) => set({ selectedAgent: agent }),
 }));

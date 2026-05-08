@@ -1,16 +1,26 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  /* config options here */
+  /* Vercel handles output automatically - no standalone needed */
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
-  reactStrictMode: false,
-  allowedDevOrigins: [
-    '.space-z.ai',
-    'localhost',
-  ],
+  reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.blink.new',
+      },
+      {
+        protocol: 'https',
+        hostname: 'blink.new',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
